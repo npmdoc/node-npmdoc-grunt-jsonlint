@@ -1,0 +1,364 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/brandonramirez/grunt-jsonlint#readme"
+
+    >grunt-jsonlint (v1.1.0)</a>
+</h1>
+<h4>Validate JSON files from grunt.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-jsonlint">module grunt-jsonlint</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-jsonlint.grunt-jsonlint">
+            function <span class="apidocSignatureSpan"></span>grunt-jsonlint
+            <span class="apidocSignatureSpan">(grunt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-jsonlint.grunt_jsonlint_task">
+            function <span class="apidocSignatureSpan">grunt-jsonlint.</span>grunt_jsonlint_task
+            <span class="apidocSignatureSpan">(grunt, jsonlint, strip)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-jsonlint.toString">
+            function <span class="apidocSignatureSpan">grunt-jsonlint.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-jsonlint.grunt_jsonlint_task">module grunt-jsonlint.grunt_jsonlint_task</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-jsonlint.grunt_jsonlint_task.grunt_jsonlint_task">
+            function <span class="apidocSignatureSpan">grunt-jsonlint.</span>grunt_jsonlint_task
+            <span class="apidocSignatureSpan">(grunt, jsonlint, strip)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-jsonlint.toString">module grunt-jsonlint.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-jsonlint.toString.toString">
+            function <span class="apidocSignatureSpan">grunt-jsonlint.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-jsonlint" id="apidoc.module.grunt-jsonlint">module grunt-jsonlint</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-jsonlint.grunt-jsonlint" id="apidoc.element.grunt-jsonlint.grunt-jsonlint">
+        function <span class="apidocSignatureSpan"></span>grunt-jsonlint
+        <span class="apidocSignatureSpan">(grunt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">grunt-jsonlint = function (grunt) {
+  &#x22;use strict&#x22;;
+
+  var strip = require(&#x27;strip-json-comments&#x27;);
+  var jsonlint = require(&#x27;jsonlint&#x27;);
+  var gruntJsonLintTask = require(&#x27;../lib/grunt-jsonlint-task&#x27;);
+
+  grunt.registerMultiTask(&#x22;jsonlint&#x22;, &#x22;Validate JSON files.&#x22;, gruntJsonLintTask(grunt, jsonlint, strip));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-jsonlint.grunt_jsonlint_task" id="apidoc.element.grunt-jsonlint.grunt_jsonlint_task">
+        function <span class="apidocSignatureSpan">grunt-jsonlint.</span>grunt_jsonlint_task
+        <span class="apidocSignatureSpan">(grunt, jsonlint, strip)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function makeTask(grunt, jsonlint, strip) {
+  var FORMATTERS = {
+    prose: require(&#x27;../lib/formatters/prose&#x27;),
+    msbuild: require(&#x27;../lib/formatters/visual-studio&#x27;)
+  };
+
+  var REPORTERS = {
+    exception: require(&#x27;../lib/reporters/exception&#x27;),
+    jshint: require(&#x27;../lib/reporters/jshint-style&#x27;)
+  };
+
+  return function () {
+    var options = this.options({
+      cjson: false,
+      format: false,
+      indent: 2,
+      formatter: &#x27;prose&#x27;,
+      reporter: &#x27;exception&#x27;
+    });
+
+    var format = FORMATTERS[options.formatter];
+    var report = REPORTERS[options.reporter];
+
+    if (this.filesSrc != null) {
+      var failed = 0;
+      var errorDetails = null;
+
+      // Monkey patch the parseError function to something we can control.
+      var originalParseError = jsonlint.parser.yy.parseError;
+      jsonlint.parser.yy.parseError = function (str, hash) {
+        errorDetails = hash;
+        //console.log(JSON.stringify(errorDetails, null, 2));
+      };
+
+      try {
+        this.filesSrc.forEach(function (file) {
+          grunt.log.debug(&#x27;Validating &#x22;&#x27; + file + &#x27;&#x22;...&#x27;);
+
+          try {
+            var data = grunt.file.read(file);
+
+            if (options.cjson) {
+              data = strip(data);
+            }
+
+            jsonlint.parse(data);
+            grunt.verbose.ok(&#x27;File &#x22;&#x27; + file + &#x27;&#x22; is valid JSON.&#x27;);
+            if ( options.format ) {
+              var obj = JSON.parse( data );
+              var fmtd = JSON.stringify( obj, null, options.indent ) + &#x22;\n&#x22;;
+              grunt.file.write( file, fmtd );
+              grunt.verbose.ok( &#x27;File &#x22;&#x27; + file + &#x27;&#x22; formatted.&#x27; );
+            }
+          }
+          catch (e) {
+            failed++;
+            grunt.log.error(format(file, errorDetails.line));
+            grunt.log.writeln(report(file, e, errorDetails, grunt));
+          }
+        });
+      }
+      finally {
+        jsonlint.parser.yy.parseError = originalParseError;
+      }
+
+      if (failed &#x3e; 0) {
+        grunt.fail.warn(failed + &#x27; &#x27; + grunt.util.pluralize(failed, &#x27;file/files&#x27;) + &#x27; failed validation&#x27;);
+      }
+      else {
+        var successful = this.filesSrc.length - failed;
+        grunt.log.ok(successful + &#x27; file&#x27; + (successful === 1 ? &#x27;&#x27; : &#x27;s&#x27;) + &#x27; lint free.&#x27;);
+      }
+    }
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-jsonlint.toString" id="apidoc.element.grunt-jsonlint.toString">
+        function <span class="apidocSignatureSpan">grunt-jsonlint.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-jsonlint.grunt_jsonlint_task" id="apidoc.module.grunt-jsonlint.grunt_jsonlint_task">module grunt-jsonlint.grunt_jsonlint_task</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-jsonlint.grunt_jsonlint_task.grunt_jsonlint_task" id="apidoc.element.grunt-jsonlint.grunt_jsonlint_task.grunt_jsonlint_task">
+        function <span class="apidocSignatureSpan">grunt-jsonlint.</span>grunt_jsonlint_task
+        <span class="apidocSignatureSpan">(grunt, jsonlint, strip)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function makeTask(grunt, jsonlint, strip) {
+  var FORMATTERS = {
+    prose: require(&#x27;../lib/formatters/prose&#x27;),
+    msbuild: require(&#x27;../lib/formatters/visual-studio&#x27;)
+  };
+
+  var REPORTERS = {
+    exception: require(&#x27;../lib/reporters/exception&#x27;),
+    jshint: require(&#x27;../lib/reporters/jshint-style&#x27;)
+  };
+
+  return function () {
+    var options = this.options({
+      cjson: false,
+      format: false,
+      indent: 2,
+      formatter: &#x27;prose&#x27;,
+      reporter: &#x27;exception&#x27;
+    });
+
+    var format = FORMATTERS[options.formatter];
+    var report = REPORTERS[options.reporter];
+
+    if (this.filesSrc != null) {
+      var failed = 0;
+      var errorDetails = null;
+
+      // Monkey patch the parseError function to something we can control.
+      var originalParseError = jsonlint.parser.yy.parseError;
+      jsonlint.parser.yy.parseError = function (str, hash) {
+        errorDetails = hash;
+        //console.log(JSON.stringify(errorDetails, null, 2));
+      };
+
+      try {
+        this.filesSrc.forEach(function (file) {
+          grunt.log.debug(&#x27;Validating &#x22;&#x27; + file + &#x27;&#x22;...&#x27;);
+
+          try {
+            var data = grunt.file.read(file);
+
+            if (options.cjson) {
+              data = strip(data);
+            }
+
+            jsonlint.parse(data);
+            grunt.verbose.ok(&#x27;File &#x22;&#x27; + file + &#x27;&#x22; is valid JSON.&#x27;);
+            if ( options.format ) {
+              var obj = JSON.parse( data );
+              var fmtd = JSON.stringify( obj, null, options.indent ) + &#x22;\n&#x22;;
+              grunt.file.write( file, fmtd );
+              grunt.verbose.ok( &#x27;File &#x22;&#x27; + file + &#x27;&#x22; formatted.&#x27; );
+            }
+          }
+          catch (e) {
+            failed++;
+            grunt.log.error(format(file, errorDetails.line));
+            grunt.log.writeln(report(file, e, errorDetails, grunt));
+          }
+        });
+      }
+      finally {
+        jsonlint.parser.yy.parseError = originalParseError;
+      }
+
+      if (failed &#x3e; 0) {
+        grunt.fail.warn(failed + &#x27; &#x27; + grunt.util.pluralize(failed, &#x27;file/files&#x27;) + &#x27; failed validation&#x27;);
+      }
+      else {
+        var successful = this.filesSrc.length - failed;
+        grunt.log.ok(successful + &#x27; file&#x27; + (successful === 1 ? &#x27;&#x27; : &#x27;s&#x27;) + &#x27; lint free.&#x27;);
+      }
+    }
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-jsonlint.toString" id="apidoc.module.grunt-jsonlint.toString">module grunt-jsonlint.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-jsonlint.toString.toString" id="apidoc.element.grunt-jsonlint.toString.toString">
+        function <span class="apidocSignatureSpan">grunt-jsonlint.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
